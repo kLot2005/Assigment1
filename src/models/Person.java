@@ -8,15 +8,12 @@ public class Person {
     private boolean gender = true;
     private int age;
 
-    private static School school = new School("SDS");
-
 
     public Person(String name, String surname, boolean gender, int age){
         this.name = name;
         this.surname = surname;
         this.gender = gender;
         this.age = age;
-        school.addPerson(this);
     }
 
 
