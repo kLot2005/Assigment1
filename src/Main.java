@@ -14,7 +14,7 @@ public class Main {
         School school = new School("school");
         List<Student> students = FileScanerUtil.loadStudents();
         List<Teacher> teachers = FileScanerUtil.loadTeachers();
-
+//надо исправить
         for (Student student : students) {
             school.addPerson(student);
             double gpa = student.calculateGpa();
