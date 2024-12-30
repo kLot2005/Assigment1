@@ -20,6 +20,10 @@ public class School {
         return members;
     }
 
+    public void setMembers(List<Person> members) {
+        this.members = members;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

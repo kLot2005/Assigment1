@@ -1,4 +1,5 @@
 package utils;
+import models.Person;
 import models.Student;
 import models.Teacher;
 
@@ -12,59 +13,56 @@ import java.util.Scanner;
 
 public class FileScanerUtil {
 
-    public static List<Student> loadStudents() throws FileNotFoundException {
+    public static List<Person> loadData() throws FileNotFoundException {
 
-        File file = new File("src/student.txt");
-        Scanner scanner = new Scanner(file);
-        List<Student> students = new ArrayList<>();
+        ArrayList<File> data = new ArrayList<>();
+        data.add(new File("src/student.txt"));
+        data.add(new File("src/teachers.txt"));
+        List<Person> persons = new ArrayList<>();
 
-        while (scanner.hasNext()) {
+        for (File file : data) {
 
-            String name = scanner.next();
-            String surname = scanner.next();
-            int age = scanner.nextInt();
-            boolean gender = scanner.next().equals("Male");
+            if(file.getPath().equals("src\\student.txt")){
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    String name = scanner.next();
+                    String surname = scanner.next();
+                    int age = scanner.nextInt();
+                    boolean gender = scanner.next().equals("Male");
 
-            List<Integer> grades = new ArrayList<>();
+                    List<Integer> grades = new ArrayList<>();
+                    while (scanner.hasNextInt()) {
+                        grades.add(scanner.nextInt());
+                    }
 
-            for (String grade : scanner.nextLine().split(" ")) {
-                if (grade.equalsIgnoreCase("")){
-                    continue;
+                    Student student = new Student(
+                            name, surname, age, gender, grades
+                    );
+
+                    persons.add(student);
                 }
-                grades.add(Integer.parseInt(grade));
+            }
+            else if (file.getPath().equals("src\\teachers.txt")){
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    String name = scanner.next();
+                    String surname = scanner.next();
+                    int age = scanner.nextInt();
+                    boolean gender = scanner.next().equals("Male");
+
+
+                    String subject = scanner.next();
+                    int yearsOfExperience = scanner.nextInt();
+                    int salary = scanner.nextInt();
+
+                    Teacher teacher = new Teacher(name, surname, age, gender, subject, yearsOfExperience, salary);
+                    persons.add(teacher);
+                }
             }
 
-            Student student = new Student(
-                    name, surname, age, gender, grades
-            );
-            students.add(student);
         }
-    scanner.close();
-    return students;
-    };
 
-    public static List<Teacher> loadTeachers() throws FileNotFoundException {
-
-        File file = new File("src/teachers.txt");
-        Scanner scanner = new Scanner(file);
-        List<Teacher> teachers = new ArrayList<>();
-
-        while (scanner.hasNext()) {
-
-            String name = scanner.next();
-            String surname = scanner.next();
-            int age = scanner.nextInt();
-            boolean gender = scanner.next().equals("Male");
-
-            String subject = scanner.next();
-            int yearsOfExperience = scanner.nextInt();
-            int salary = scanner.nextInt();
-
-            Teacher teacher = new Teacher(name, surname, age, gender, subject, yearsOfExperience, salary);
-            teachers.add(teacher);
-        }
-        scanner.close();
-        return teachers;
+        return persons;
     }
 
 
