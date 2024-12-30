@@ -24,8 +24,7 @@ public class Student extends Person {
         for (Integer grade : grades) {
             sum += grade;
         }
-        return sum / grades.size();
-    }
+        return sum / grades.size() * 0.04;    }
 
 
 
